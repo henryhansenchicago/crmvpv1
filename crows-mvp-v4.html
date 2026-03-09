@@ -1,0 +1,1219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Crow's — Direct Seed. Eastern Corn Belt.</title>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400;1,700&family=Instrument+Sans:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+
+:root {
+  --black: #0a0a0a;
+  --white: #ffffff;
+  --off:   #f7f7f5;
+  --rule:  #e4e4e2;
+  --gray:  #888884;
+  --serif: 'Libre Baskerville', Georgia, serif;
+  --mono:  'Space Mono', monospace;
+  --sans:  'Instrument Sans', system-ui, sans-serif;
+}
+
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body { background:var(--white); color:var(--black); font-family:var(--sans); overflow-x:hidden; -webkit-font-smoothing:antialiased; }
+
+/* ── ANIMATIONS ── */
+@keyframes up { from{opacity:0;transform:translateY(18px)} to{opacity:1;transform:none} }
+.r { opacity:0; transform:translateY(16px); transition:opacity .65s ease, transform .65s ease; }
+.r.in { opacity:1; transform:none; }
+
+/* ── NAV ── */
+nav {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 999;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 52px;
+  background: var(--white);
+  border-bottom: 1px solid transparent;
+  transition: border-color .2s;
+}
+nav.on { border-color: var(--rule); }
+.brand {
+  font-family: var(--serif);
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: .04em;
+  text-decoration: none;
+  color: var(--black);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.nav-links { display:flex; align-items:center; gap:32px; list-style:none; }
+.nav-links a {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--gray);
+  text-decoration: none;
+  transition: color .15s;
+}
+.nav-links a:hover { color: var(--black); }
+.nav-cta {
+  background: var(--black) !important;
+  color: var(--white) !important;
+  padding: 8px 20px;
+}
+
+/* ── BUTTONS ── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 15px 36px;
+  transition: all .18s;
+  cursor: pointer;
+  border: none;
+}
+.btn-black { background:var(--black); color:var(--white); }
+.btn-black:hover { opacity:.8; }
+.btn-ghost { background:transparent; color:var(--black); border:1.5px solid var(--rule); }
+.btn-ghost:hover { border-color:var(--black); }
+
+/* ── EYEBROW ── */
+.eyebrow {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--gray);
+  margin-bottom: 22px;
+  display: block;
+}
+
+/* ════════════════════════════
+   HERO
+════════════════════════════ */
+#hero {
+  min-height: 100vh;
+  padding: 100px 52px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-bottom: 1px solid var(--rule);
+}
+
+.hero-kicker {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: .3em;
+  text-transform: uppercase;
+  color: var(--gray);
+  margin-bottom: 36px;
+  animation: up .6s ease both;
+}
+
+.hero-h1 {
+  font-family: var(--serif);
+  font-size: clamp(52px, 9vw, 128px);
+  font-weight: 700;
+  line-height: .92;
+  letter-spacing: -.03em;
+  max-width: 1000px;
+  margin-bottom: 0;
+  animation: up .6s .06s ease both;
+}
+.hero-h1 em { font-style:italic; font-weight:400; }
+
+.hero-divider {
+  width: 60px;
+  height: 2px;
+  background: var(--black);
+  margin: 44px 0;
+  animation: up .6s .12s ease both;
+}
+
+.hero-sub {
+  font-size: 19px;
+  font-weight: 300;
+  color: var(--gray);
+  max-width: 540px;
+  line-height: 1.7;
+  margin-bottom: 48px;
+  animation: up .6s .18s ease both;
+  letter-spacing: .01em;
+}
+.hero-sub strong { color:var(--black); font-weight:500; }
+
+.hero-btns {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  animation: up .6s .24s ease both;
+}
+
+/* Hero bottom stats */
+.hero-stats {
+  margin-top: 80px;
+  border-top: 1px solid var(--rule);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  margin-left: -52px;
+  margin-right: -52px;
+}
+.hero-stat {
+  padding: 28px 52px;
+  border-right: 1px solid var(--rule);
+  animation: up .6s .3s ease both;
+}
+.hero-stat:last-child { border-right: none; }
+.hero-stat-num {
+  font-family: var(--serif);
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1;
+  margin-bottom: 5px;
+}
+.hero-stat-label {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--gray);
+}
+
+/* ════════════════════════════
+   THE PROBLEM (Dry/Honest)
+════════════════════════════ */
+#honest {
+  padding: 100px 52px;
+  background: var(--black);
+  color: var(--white);
+}
+#honest .eyebrow { color:rgba(255,255,255,.3); }
+
+.honest-layout {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 100px;
+  align-items: start;
+}
+
+.honest-h2 {
+  font-family: var(--serif);
+  font-size: clamp(36px, 5vw, 62px);
+  font-weight: 700;
+  line-height: 1.02;
+  letter-spacing: -.025em;
+  margin-bottom: 24px;
+}
+.honest-h2 em { font-style:italic; font-weight:400; }
+
+.honest-lede {
+  font-size: 16px;
+  font-weight: 300;
+  color: rgba(255,255,255,.5);
+  line-height: 1.8;
+  max-width: 360px;
+}
+
+.honest-items { padding-top: 4px; }
+.honest-item {
+  border-top: 1px solid rgba(255,255,255,.08);
+  padding: 24px 0;
+  display: grid;
+  grid-template-columns: 32px 1fr;
+  gap: 20px;
+  align-items: baseline;
+}
+.honest-n {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: rgba(255,255,255,.2);
+  padding-top: 2px;
+}
+.honest-q {
+  font-size: 15px;
+  font-weight: 300;
+  color: rgba(255,255,255,.85);
+  line-height: 1.7;
+}
+.honest-q strong { color:var(--white); font-weight:500; }
+.honest-q em { font-style:italic; color:rgba(255,255,255,.5); }
+
+/* ════════════════════════════
+   THE SYSTEM
+════════════════════════════ */
+#system {
+  padding: 100px 52px;
+  border-bottom: 1px solid var(--rule);
+}
+
+.system-intro {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: end;
+  margin-bottom: 64px;
+}
+
+.system-h2 {
+  font-family: var(--serif);
+  font-size: clamp(36px, 5vw, 60px);
+  font-weight: 700;
+  line-height: 1.02;
+  letter-spacing: -.025em;
+}
+.system-h2 em { font-style:italic; font-weight:400; }
+
+.system-right p {
+  font-size: 17px;
+  font-weight: 300;
+  color: var(--gray);
+  line-height: 1.8;
+  margin-bottom: 16px;
+}
+.system-right p strong { color:var(--black); font-weight:500; }
+
+/* Three pillars */
+.pillars {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--rule);
+  border: 1px solid var(--rule);
+  margin-bottom: 2px;
+}
+.pillar {
+  background: var(--white);
+  padding: 44px 36px;
+  transition: background .18s;
+}
+.pillar:hover { background: var(--off); }
+.pillar-icon {
+  font-family: var(--serif);
+  font-size: 44px;
+  font-weight: 700;
+  line-height: 1;
+  margin-bottom: 20px;
+  color: var(--rule);
+}
+.pillar-title {
+  font-family: var(--serif);
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  line-height: 1.1;
+}
+.pillar-title em { font-style:italic; font-weight:400; }
+.pillar-body {
+  font-size: 14px;
+  font-weight: 300;
+  color: var(--gray);
+  line-height: 1.8;
+}
+.pillar-body strong { color:var(--black); font-weight:500; }
+
+/* System promise bar */
+.promise {
+  background: var(--black);
+  color: var(--white);
+  padding: 40px 52px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+.promise-text {
+  font-family: var(--serif);
+  font-size: clamp(18px, 2.2vw, 26px);
+  font-style: italic;
+  font-weight: 400;
+  line-height: 1.4;
+  flex: 1;
+}
+.promise-tag {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.28);
+  text-align: right;
+  line-height: 1.8;
+}
+
+/* ════════════════════════════
+   MEMBERSHIP
+════════════════════════════ */
+#membership {
+  padding: 100px 52px;
+  background: var(--off);
+  border-bottom: 1px solid var(--rule);
+}
+
+.mem-intro {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: start;
+  margin-bottom: 64px;
+}
+
+.mem-h2 {
+  font-family: var(--serif);
+  font-size: clamp(36px, 5vw, 60px);
+  font-weight: 700;
+  line-height: 1.02;
+  letter-spacing: -.025em;
+}
+.mem-h2 em { font-style:italic; font-weight:400; }
+
+.mem-intro-right p {
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 1.8;
+  color: var(--gray);
+  margin-bottom: 20px;
+}
+.mem-intro-right p strong { color:var(--black); font-weight:500; }
+.mem-intro-right p.lede {
+  font-size: 18px;
+  font-weight: 400;
+  color: var(--black);
+}
+
+.mem-tiles {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--rule);
+  border: 1px solid var(--rule);
+  margin-bottom: 2px;
+}
+.mem-tile {
+  background: var(--white);
+  padding: 36px 28px 44px;
+}
+.mem-big {
+  font-family: var(--serif);
+  font-size: 48px;
+  font-weight: 700;
+  line-height: 1;
+  margin-bottom: 12px;
+}
+.mem-title {
+  font-family: var(--sans);
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+}
+.mem-copy {
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--gray);
+  line-height: 1.8;
+}
+
+/* ════════════════════════════
+   PRODUCTS
+════════════════════════════ */
+#products {
+  padding: 100px 52px;
+  border-bottom: 1px solid var(--rule);
+}
+
+.prod-intro {
+  margin-bottom: 56px;
+  max-width: 580px;
+}
+.prod-h2 {
+  font-family: var(--serif);
+  font-size: clamp(34px, 4.5vw, 54px);
+  font-weight: 700;
+  line-height: 1.04;
+  letter-spacing: -.025em;
+  margin-bottom: 16px;
+}
+.prod-h2 em { font-style:italic; font-weight:400; }
+.prod-intro p {
+  font-size: 15px;
+  font-weight: 300;
+  color: var(--gray);
+  line-height: 1.8;
+}
+
+.prod-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--rule);
+  border: 1px solid var(--rule);
+}
+.prod-card {
+  background: var(--white);
+  padding: 44px 36px;
+  transition: background .18s;
+}
+.prod-card:hover { background: var(--off); }
+.prod-crop {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: .28em;
+  text-transform: uppercase;
+  color: var(--gray);
+  margin-bottom: 18px;
+  display: block;
+}
+.prod-name {
+  font-family: var(--serif);
+  font-size: clamp(26px, 3vw, 38px);
+  font-weight: 700;
+  line-height: 1.04;
+  letter-spacing: -.02em;
+  margin-bottom: 14px;
+}
+.prod-name em { font-style:italic; font-weight:400; }
+.prod-line {
+  width: 32px; height: 1px;
+  background: var(--rule);
+  margin-bottom: 18px;
+}
+.prod-copy {
+  font-size: 14px;
+  font-weight: 300;
+  color: var(--gray);
+  line-height: 1.8;
+}
+.prod-copy strong { color:var(--black); font-weight:500; }
+
+/* ════════════════════════════
+   PRICING
+════════════════════════════ */
+#pricing {
+  padding: 100px 52px;
+  background: var(--off);
+  border-bottom: 1px solid var(--rule);
+}
+
+.pricing-intro {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: end;
+  margin-bottom: 48px;
+}
+.pricing-h2 {
+  font-family: var(--serif);
+  font-size: clamp(34px, 4.5vw, 54px);
+  font-weight: 700;
+  line-height: 1.04;
+  letter-spacing: -.025em;
+}
+.pricing-h2 em { font-style:italic; font-weight:400; }
+.pricing-intro p {
+  font-size: 15px;
+  font-weight: 300;
+  color: var(--gray);
+  line-height: 1.8;
+}
+
+/* calc */
+.calc {
+  background: var(--white);
+  border: 1px solid var(--rule);
+}
+.calc-tabs {
+  display: flex;
+  border-bottom: 1px solid var(--rule);
+}
+.calc-tab {
+  padding: 14px 32px;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  border: none;
+  background: transparent;
+  color: var(--gray);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  transition: all .18s;
+}
+.calc-tab.on { color:var(--black); border-bottom-color:var(--black); }
+.calc-body { padding: 40px; }
+
+.rate-row {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 16px 20px;
+  background: var(--off);
+  border: 1px solid var(--rule);
+  margin-bottom: 28px;
+  flex-wrap: wrap;
+}
+.rate-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--gray);
+  white-space: nowrap;
+}
+.rate-val {
+  font-family: var(--serif);
+  font-size: 22px;
+  font-weight: 700;
+  min-width: 100px;
+}
+.rate-track { flex:1; min-width:140px; }
+
+input[type="range"].sl {
+  -webkit-appearance:none; width:100%; height:2px;
+  background:var(--rule); outline:none; cursor:pointer;
+}
+input[type="range"].sl::-webkit-slider-thumb {
+  -webkit-appearance:none; width:16px; height:16px;
+  background:var(--black); border-radius:50%;
+  cursor:pointer; transition:transform .15s;
+}
+input[type="range"].sl::-webkit-slider-thumb:hover { transform:scale(1.2); }
+.sl-ticks {
+  display:flex; justify-content:space-between;
+  font-family:var(--mono); font-size:9px; color:var(--rule); margin-top:4px;
+}
+
+.cards-hd { display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; }
+.cards-hd-lbl { font-family:var(--mono); font-size:10px; letter-spacing:.2em; text-transform:uppercase; color:var(--gray); }
+.add-btn {
+  font-family:var(--mono); font-size:10px; letter-spacing:.16em; text-transform:uppercase;
+  border:1.5px solid var(--black); color:var(--black); background:transparent;
+  padding:7px 16px; cursor:pointer; transition:all .15s;
+}
+.add-btn:hover { background:var(--black); color:var(--white); }
+
+.cards-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:12px; margin-bottom:32px; }
+
+@keyframes cIn { from{opacity:0;transform:translateY(6px)} to{opacity:1;transform:none} }
+.hcard { border:1px solid var(--rule); padding:20px; background:var(--white); transition:border-color .18s; animation:cIn .2s ease both; }
+.hcard:hover { border-color:var(--black); }
+.hc-top { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:10px; }
+.hc-tier { font-family:var(--mono); font-size:9px; letter-spacing:.14em; text-transform:uppercase; color:var(--gray); margin-bottom:4px; }
+.hc-name { font-family:var(--serif); font-size:18px; font-weight:700; border:none; background:transparent; color:var(--black); width:100%; outline:none; border-bottom:1px dashed var(--rule); padding-bottom:1px; }
+.hc-rm { background:none; border:none; cursor:pointer; color:var(--gray); font-size:18px; line-height:1; padding-left:6px; transition:color .15s; }
+.hc-rm:hover { color:var(--black); }
+.hc-prices { display:grid; grid-template-columns:1fr 1fr; gap:8px; background:var(--off); padding:12px; margin-bottom:12px; border:1px solid var(--rule); }
+.hc-pc label { font-family:var(--mono); font-size:9px; letter-spacing:.12em; text-transform:uppercase; color:var(--gray); display:block; margin-bottom:4px; }
+.hc-pc.ours label { color:var(--black); }
+.hc-pw { display:flex; align-items:center; gap:2px; }
+.hc-$ { font-family:var(--serif); font-size:12px; font-weight:700; color:var(--gray); }
+.hc-pc.ours .hc-$ { color:var(--black); }
+.hc-pi { font-family:var(--mono); font-size:14px; font-weight:500; border:none; border-bottom:1px solid var(--rule); background:transparent; width:50px; outline:none; color:var(--gray); }
+.hc-pc.ours .hc-pi { color:var(--black); }
+.hc-pk { font-family:var(--mono); font-size:9px; color:var(--gray); }
+.hc-acres { margin-bottom:10px; }
+.hc-acres-hd { display:flex; justify-content:space-between; margin-bottom:6px; }
+.hc-acres-tag { font-family:var(--mono); font-size:9px; letter-spacing:.14em; text-transform:uppercase; color:var(--gray); }
+.hc-acres-val { font-family:var(--serif); font-size:13px; font-weight:700; }
+.hc-ticks { display:flex; justify-content:space-between; font-family:var(--mono); font-size:9px; color:var(--gray); margin-top:3px; }
+.hc-foot { border-top:1px solid var(--off); padding-top:10px; display:flex; justify-content:space-between; align-items:flex-end; }
+.hc-lbl { font-family:var(--mono); font-size:9px; letter-spacing:.12em; text-transform:uppercase; color:var(--gray); margin-bottom:2px; }
+.hc-bags { font-family:var(--mono); font-size:9px; color:var(--gray); }
+.hc-val { font-family:var(--serif); font-size:20px; font-weight:700; }
+.hc-save { font-family:var(--mono); font-size:9px; color:var(--gray); text-align:right; margin-top:2px; }
+
+.calc-summary { border-top:2px solid var(--black); padding-top:28px; }
+.sum-lbl { font-family:var(--mono); font-size:10px; letter-spacing:.22em; text-transform:uppercase; color:var(--gray); margin-bottom:16px; }
+.sum-row { display:grid; grid-template-columns:repeat(4,1fr); border:1px solid var(--rule); margin-bottom:12px; }
+.sum-cell { padding:18px 16px; border-right:1px solid var(--rule); }
+.sum-cell:last-child { border-right:none; }
+.sum-cell-lbl { font-family:var(--mono); font-size:9px; letter-spacing:.16em; text-transform:uppercase; color:var(--gray); margin-bottom:5px; }
+.sum-cell-val { font-family:var(--serif); font-size:22px; font-weight:700; line-height:1; }
+.sum-cell-val.dim { color:var(--gray); }
+.savings-bar { background:var(--black); color:var(--white); padding:24px 28px; display:flex; justify-content:space-between; align-items:center; gap:20px; flex-wrap:wrap; }
+.sb-lhs strong { display:block; font-size:13px; font-weight:400; margin-bottom:2px; }
+.sb-lhs span { font-size:10px; opacity:.4; font-family:var(--mono); letter-spacing:.1em; }
+.sb-num { font-family:var(--serif); font-size:48px; font-weight:900; line-height:1; }
+
+.soy-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--rule); border:1px solid var(--rule); margin-bottom:24px; }
+.soy-cell { background:var(--white); padding:24px 20px; }
+.soy-cell-lbl { font-family:var(--mono); font-size:9px; letter-spacing:.16em; text-transform:uppercase; color:var(--gray); margin-bottom:8px; }
+.soy-cell-val { font-family:var(--serif); font-size:28px; font-weight:700; line-height:1; }
+.soy-cell-val.dim { color:var(--gray); }
+.soy-sub { font-family:var(--mono); font-size:9px; color:var(--gray); margin-top:4px; }
+.soy-pi { font-family:var(--mono); font-size:20px; font-weight:500; border:none; border-bottom:1px solid var(--rule); background:transparent; width:64px; outline:none; color:var(--black); }
+
+/* ════════════════════════════
+   HOW IT WORKS
+════════════════════════════ */
+#how {
+  padding: 100px 52px;
+  border-bottom: 1px solid var(--rule);
+}
+.how-intro { max-width:520px; margin-bottom:56px; }
+.how-h2 {
+  font-family: var(--serif);
+  font-size: clamp(34px, 4.5vw, 54px);
+  font-weight: 700;
+  line-height: 1.04;
+  letter-spacing: -.025em;
+}
+.how-h2 em { font-style:italic; font-weight:400; }
+.how-steps { display:grid; grid-template-columns:repeat(4,1fr); border:1px solid var(--rule); }
+.how-step { padding:40px 28px; border-right:1px solid var(--rule); transition:background .18s; }
+.how-step:last-child { border-right:none; }
+.how-step:hover { background:var(--off); }
+.how-num { font-family:var(--mono); font-size:10px; letter-spacing:.2em; color:var(--gray); margin-bottom:16px; }
+.how-title { font-family:var(--serif); font-size:19px; font-weight:700; margin-bottom:10px; }
+.how-body { font-size:13px; font-weight:300; color:var(--gray); line-height:1.8; }
+
+/* ════════════════════════════
+   JOIN
+════════════════════════════ */
+#join {
+  padding: 100px 52px;
+  background: var(--black);
+  color: var(--white);
+}
+.join-inner { max-width:620px; }
+.join-eyebrow { font-family:var(--mono); font-size:10px; letter-spacing:.28em; text-transform:uppercase; color:rgba(255,255,255,.28); margin-bottom:24px; display:block; }
+.join-h2 {
+  font-family: var(--serif);
+  font-size: clamp(40px, 6vw, 80px);
+  font-weight: 700;
+  line-height: .92;
+  letter-spacing: -.04em;
+  margin-bottom: 28px;
+}
+.join-h2 em { font-style:italic; font-weight:400; }
+.join-sub { font-size:16px; font-weight:300; color:rgba(255,255,255,.5); line-height:1.75; max-width:440px; margin-bottom:44px; }
+.join-form { display:flex; max-width:480px; margin-bottom:16px; }
+.join-input {
+  flex:1; padding:15px 20px;
+  border:1.5px solid rgba(255,255,255,.15);
+  background:transparent; color:var(--white);
+  font-family:var(--sans); font-size:14px; outline:none;
+  transition:border-color .18s;
+}
+.join-input:focus { border-color:rgba(255,255,255,.5); }
+.join-input::placeholder { color:rgba(255,255,255,.25); }
+.join-submit {
+  padding:15px 32px; background:var(--white); color:var(--black);
+  font-family:var(--mono); font-size:10px; letter-spacing:.22em; text-transform:uppercase;
+  border:none; cursor:pointer; white-space:nowrap; transition:opacity .18s;
+}
+.join-submit:hover { opacity:.85; }
+.join-fine { font-family:var(--mono); font-size:9px; letter-spacing:.18em; text-transform:uppercase; color:rgba(255,255,255,.2); }
+
+/* ════════════════════════════
+   FOOTER
+════════════════════════════ */
+footer {
+  padding:24px 52px;
+  background:var(--black);
+  border-top:1px solid rgba(255,255,255,.08);
+  display:flex; justify-content:space-between; align-items:center;
+  flex-wrap:wrap; gap:12px;
+}
+.foot-brand { font-family:var(--serif); font-size:16px; font-weight:900; color:var(--white); letter-spacing:.04em; }
+.foot-copy { font-family:var(--mono); font-size:9px; letter-spacing:.16em; text-transform:uppercase; color:rgba(255,255,255,.2); }
+
+/* ════════════════════════════
+   RESPONSIVE
+════════════════════════════ */
+@media (max-width:900px) {
+  :root { --pad:24px; }
+  nav, #hero, #honest, #system, #membership, #products, #pricing, #how, #join, footer { padding-left:24px; padding-right:24px; }
+  .nav-links li:not(:last-child) { display:none; }
+  .hero-stats { grid-template-columns:1fr 1fr; margin-left:-24px; margin-right:-24px; margin-top:48px; }
+  .hero-stat { padding:20px 24px; }
+  .honest-layout, .system-intro, .mem-intro, .pricing-intro { grid-template-columns:1fr; gap:40px; }
+  .pillars, .prod-grid { grid-template-columns:1fr; }
+  .mem-tiles { grid-template-columns:1fr 1fr; }
+  .how-steps { grid-template-columns:1fr 1fr; }
+  .how-step:nth-child(2) { border-right:none; }
+  .how-step:nth-child(1), .how-step:nth-child(2) { border-bottom:1px solid var(--rule); }
+  .sum-row { grid-template-columns:1fr 1fr; }
+  .soy-grid { grid-template-columns:1fr; }
+  .join-form { flex-direction:column; }
+  footer { flex-direction:column; align-items:flex-start; }
+}
+@media (max-width:560px) {
+  .mem-tiles, .how-steps { grid-template-columns:1fr; }
+  .how-step { border-right:none; border-bottom:1px solid var(--rule); }
+  .how-step:last-child { border-bottom:none; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#" class="brand">
+    <svg width="26" height="26" viewBox="0 0 100 100" fill="none">
+      <g fill="#0a0a0a">
+        <ellipse cx="52" cy="62" rx="22" ry="18"/>
+        <circle cx="68" cy="34" r="11"/>
+        <polygon points="79,32 88,35 79,38"/>
+        <path d="M64,24C66,18 69,14 71,18C73,12 76,9 77,14C79,8 82,10 80,17C78,15 74,17 71,18C68,16 65,20 64,24Z"/>
+        <ellipse cx="77" cy="43" rx="4" ry="6"/>
+        <path d="M30,50C20,42 15,35 18,28C22,35 28,40 30,50Z"/>
+        <path d="M30,54C18,50 10,45 10,36C16,43 24,48 30,54Z"/>
+        <path d="M30,58C18,58 10,55 12,45C17,52 24,55 30,58Z"/>
+        <rect x="46" y="78" width="5" height="14" rx="2"/>
+        <rect x="56" y="78" width="5" height="14" rx="2"/>
+      </g>
+    </svg>
+    CROW'S
+  </a>
+  <ul class="nav-links">
+    <li><a href="#system">The System</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="#how">How It Works</a></li>
+    <li><a href="#join" class="nav-cta">Join Free</a></li>
+  </ul>
+</nav>
+
+
+<!-- HERO -->
+<section id="hero">
+  <p class="hero-kicker">Direct Seed · Eastern Corn Belt · Est. 2024</p>
+  <h1 class="hero-h1">
+    Take control<br>
+    of your seed<br>
+    <em>purchase.</em>
+  </h1>
+  <div class="hero-divider"></div>
+  <p class="hero-sub">
+    We invite next generation farmers to build the future of the Eastern Corn Belt with us.<br>
+    <strong>One system. One price. Pay after harvest.</strong>
+  </p>
+  <div class="hero-btns">
+    <a href="#join" class="btn btn-black">Join Free →</a>
+    <a href="#pricing" class="btn btn-ghost">See the numbers</a>
+  </div>
+
+  <div class="hero-stats r">
+    <div class="hero-stat">
+      <div class="hero-stat-num">$0</div>
+      <div class="hero-stat-label">To join. Free forever.</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">0%</div>
+      <div class="hero-stat-label">Financing. Pay after harvest.</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">1×</div>
+      <div class="hero-stat-label">One price. Same for everyone.</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">→</div>
+      <div class="hero-stat-label">Direct to your farm. No middleman.</div>
+    </div>
+  </div>
+</section>
+
+
+<!-- HONEST -->
+<section id="honest">
+  <span class="eyebrow">We're not for everyone</span>
+  <div class="honest-layout">
+    <div class="r">
+      <h2 class="honest-h2">Just for farmers<br>who want <em>more<br>control.</em></h2>
+      <p class="honest-lede">For farmers who want to eliminate layers, make their own decisions, and access simple, fair deals. And who want seed with high performing genetics that consistently delivers.</p>
+    </div>
+    <div class="honest-items r">
+      <div class="honest-item">
+        <span class="honest-n">01</span>
+        <p class="honest-q"><strong>What if every farmer paid the same fair price — regardless of farm size or how hard they negotiated?</strong> At Crow's, one price means every member gets the same deal. No exceptions. <em>No surprises.</em></p>
+      </div>
+      <div class="honest-item">
+        <span class="honest-n">02</span>
+        <p class="honest-q"><strong>What if your seed investment was built around your exact acres and planting population?</strong> Crow's prices by the thousand seeds so you only pay for what you actually put in the ground. <em>Not a bag count that doesn't quite fit.</em></p>
+      </div>
+      <div class="honest-item">
+        <span class="honest-n">03</span>
+        <p class="honest-q"><strong>What if you could plant this spring and pay after harvest — with zero interest?</strong> Crow's financing is built into your membership. <em>Your cash stays working for you all season.</em></p>
+      </div>
+      <div class="honest-item">
+        <span class="honest-n">04</span>
+        <p class="honest-q"><strong>What if high-performing biologicals were already built into your seed program — not sold to you separately at every turn?</strong> HomeForty Bio is integrated from day one. <em>One system. One invoice.</em></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- THE CROW'S MEMBERSHIP SYSTEM -->
+<section id="system">
+  <span class="eyebrow">The Crow's Membership System</span>
+  <div class="system-intro">
+    <div class="r">
+      <h2 class="system-h2">A new system for farmers<br>with more seasons ahead<br><em>than behind them.</em></h2>
+    </div>
+    <div class="r">
+      <p class="lede" style="font-size:18px;font-weight:400;color:var(--black);margin-bottom:16px;line-height:1.7;">Making seed purchasing simple, fair and in your control.</p>
+      <p style="font-size:15px;font-weight:300;color:var(--gray);line-height:1.85;margin-bottom:14px;">Crow's is a direct membership system that empowers next generation Eastern Corn Belt farmers to take control of the most critical part of their row crop operation — the seed they plant.</p>
+      <p style="font-size:15px;font-weight:300;color:var(--gray);line-height:1.85;">It packages not only the seed you buy, but <strong style="color:var(--black);font-weight:500;">how you buy it, when you pay for it, and what you do to enhance its performance.</strong> All in one incredibly simple system.</p>
+    </div>
+  </div>
+
+  <div class="mem-tiles r">
+    <div class="mem-tile">
+      <div class="mem-big">$0</div>
+      <div class="mem-title">To Join</div>
+      <div class="mem-copy">Free to join. Free to stay. No volume minimums, no annual renewal, no catch buried in paragraph four.</div>
+    </div>
+    <div class="mem-tile">
+      <div class="mem-big">1×</div>
+      <div class="mem-title">One Price</div>
+      <div class="mem-copy">One price. The same for every member. You don't need relationships, more volume, or a persuasive personality to access it.</div>
+    </div>
+    <div class="mem-tile">
+      <div class="mem-big">0%</div>
+      <div class="mem-title">Crow's Financing</div>
+      <div class="mem-copy">Financing integrated into your membership. Pay after harvest. Your cash stays working for you all the way through the growing season.</div>
+    </div>
+    <div class="mem-tile">
+      <div class="mem-big">+</div>
+      <div class="mem-title">Performance Built In</div>
+      <div class="mem-copy">HomeForty Bio biologicals integrated from day one. Seed, treatment, and performance enhancement. One program, one invoice.</div>
+    </div>
+  </div>
+
+  <div class="promise r">
+    <span class="promise-text">"The seed you plant. How you buy it. When you pay. How it performs. One system."</span>
+    <span class="promise-tag">Crow's Membership<br>Eastern Corn Belt · Est. 2024</span>
+  </div>
+</section>
+
+
+
+<!-- OUR INTEGRATED SYSTEM -->
+<section id="products">
+  <div class="prod-intro r">
+    <h2 class="prod-h2">Our Simple Product System:<br>Seed + Performance Inputs.<br><em>Integrated ROI.<br>From the beginning.</em></h2>
+    <p>Everything you need to take control of your seed program — delivered direct to your farm.</p>
+  </div>
+
+  <div class="prod-grid r">
+    <div class="prod-card">
+      <span class="prod-crop">Corn</span>
+      <h3 class="prod-name">Corn is<br><em>King.</em></h3>
+      <div class="prod-line"></div>
+      <p class="prod-copy">We only play at the high end of the market. Our corn seed is <strong>proven, high quality</strong> and consistently delivers year after year.</p>
+    </div>
+    <div class="prod-card">
+      <span class="prod-crop">Soybeans</span>
+      <h3 class="prod-name">Beans are<br>just beans.<br><em>We beg to differ.</em></h3>
+      <div class="prod-line"></div>
+      <p class="prod-copy">We integrate a system of the <strong>highest performing genetics</strong> with fully loaded treatment and a simple biostimulant recipe to protect and accelerate growth. Sold and delivered direct to your farm. That's a very different soybean.</p>
+    </div>
+    <div class="prod-card">
+      <span class="prod-crop">Biologicals</span>
+      <h3 class="prod-name">HomeForty<br><em>Bio.</em></h3>
+      <div class="prod-line"></div>
+      <p class="prod-copy">A <strong>farmer-invested biological brand</strong> integrated directly into the Crow's system. HomeLaunch, HomeBase, and HomeGuard work together to fix nitrogen, unlock bound nutrients, and defend against stress. Built into your per-acre program from the start. <strong>One system. One invoice.</strong></p>
+    </div>
+  </div>
+</section>
+
+
+<!-- PRICING -->
+<section id="pricing">
+  <span class="eyebrow">Run Your Numbers</span>
+  <div class="pricing-intro">
+    <div class="r">
+      <h2 class="pricing-h2">Only pay for<br>the seed<br><em>you need.</em></h2>
+    </div>
+    <div class="r">
+      <p>Why doesn't anyone simply charge farmers for the seed count they need? Build a multi-hybrid plan with your planting population and see how Crow's pricing provides a much simpler, more precise membership cost — delivering much greater ROI.</p>
+    </div>
+  </div>
+
+  <div class="calc r">
+    <div class="calc-tabs">
+      <button class="calc-tab on" id="tab-corn-btn" onclick="setTab('corn')">Corn</button>
+      <button class="calc-tab" id="tab-soy-btn" onclick="setTab('soy')">Soybeans</button>
+    </div>
+
+    <!-- CORN -->
+    <div class="calc-body" id="calc-corn">
+      <div class="rate-row">
+        <span class="rate-label">Seeding Rate</span>
+        <span class="rate-val" id="rate-display">32,000 /ac</span>
+        <div class="rate-track">
+          <input type="range" class="sl" id="global-rate" min="28000" max="38000" step="1000" value="32000" oninput="renderCards()">
+          <div class="sl-ticks"><span>28K</span><span>33K</span><span>38K</span></div>
+        </div>
+      </div>
+      <div class="cards-hd">
+        <span class="cards-hd-lbl">Hybrids</span>
+        <button class="add-btn" onclick="addHybrid()">+ Add Hybrid</button>
+      </div>
+      <div class="cards-grid" id="cards-grid"></div>
+      <div class="calc-summary">
+        <div class="sum-lbl">Summary — Corn</div>
+        <div class="sum-row">
+          <div class="sum-cell"><div class="sum-cell-lbl">Total Acres</div><div class="sum-cell-val" id="sum-acres">0</div></div>
+          <div class="sum-cell"><div class="sum-cell-lbl">Bags Needed</div><div class="sum-cell-val" id="sum-bags">0</div></div>
+          <div class="sum-cell"><div class="sum-cell-lbl">Crow's Cost</div><div class="sum-cell-val" id="sum-our">$0</div></div>
+          <div class="sum-cell"><div class="sum-cell-lbl">Your Current Cost</div><div class="sum-cell-val dim" id="sum-market">$0</div></div>
+        </div>
+        <div class="savings-bar">
+          <div class="sb-lhs"><strong>Estimated Savings</strong><span>Based on what you entered above</span></div>
+          <div class="sb-num">$<span id="sum-savings">0</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SOY -->
+    <div class="calc-body" id="calc-soy" style="display:none">
+      <div class="soy-grid">
+        <div class="soy-cell">
+          <div class="soy-cell-lbl">Our Price / K</div>
+          <div class="soy-cell-val">$0.43</div>
+          <div class="soy-sub">Pre-treated · Delivered</div>
+        </div>
+        <div class="soy-cell">
+          <div class="soy-cell-lbl">What You Pay Now / K</div>
+          <div style="display:flex;align-items:center;gap:4px;margin-bottom:4px">
+            <span style="font-family:var(--serif);font-size:16px;font-weight:700;color:var(--gray)">$</span>
+            <input type="number" class="soy-pi" id="soy-mkt" value="0.61" step="0.01" min="0.20" max="1.50" oninput="recalcSoy()">
+            <span style="font-family:var(--mono);font-size:9px;color:var(--gray)">/K</span>
+          </div>
+          <div class="soy-sub">Enter your current rate</div>
+        </div>
+        <div class="soy-cell">
+          <div class="soy-cell-lbl">Savings / Acre</div>
+          <div class="soy-cell-val" id="soy-sav-ac">$0.00</div>
+          <div class="soy-sub">At 140,000 seeds / acre</div>
+        </div>
+      </div>
+      <div class="rate-row">
+        <span class="rate-label">Acres to Plant</span>
+        <span class="rate-val" id="soy-ac-disp">200 ac</span>
+        <div class="rate-track">
+          <input type="range" class="sl" id="soy-acres" min="50" max="800" step="25" value="200" oninput="recalcSoy()">
+          <div class="sl-ticks"><span>50 ac</span><span>425 ac</span><span>800 ac</span></div>
+        </div>
+      </div>
+      <div class="calc-summary">
+        <div class="sum-lbl">Summary — Soybeans</div>
+        <div class="sum-row">
+          <div class="sum-cell"><div class="sum-cell-lbl">Acres</div><div class="sum-cell-val" id="soy-s-ac">200</div></div>
+          <div class="sum-cell"><div class="sum-cell-lbl">Units</div><div class="sum-cell-val" id="soy-s-units">200</div></div>
+          <div class="sum-cell"><div class="sum-cell-lbl">Crow's Cost</div><div class="sum-cell-val" id="soy-s-our">$0</div></div>
+          <div class="sum-cell"><div class="sum-cell-lbl">Your Current Cost</div><div class="sum-cell-val dim" id="soy-s-mkt">$0</div></div>
+        </div>
+        <div class="savings-bar">
+          <div class="sb-lhs"><strong>Estimated Savings — Soybeans</strong><span>Direct · Pre-treated · One price for every member</span></div>
+          <div class="sb-num">$<span id="soy-s-sav">0</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- HOW IT WORKS -->
+<section id="how">
+  <span class="eyebrow">How It Works</span>
+  <div class="how-intro r">
+    <h2 class="how-h2">Four steps.<br><em>That's it.</em></h2>
+  </div>
+  <div class="how-steps">
+    <div class="how-step r">
+      <div class="how-num">01</div>
+      <div class="how-title">Join Free</div>
+      <div class="how-body">Two minutes. No cost. Crow's financing pre-arranged so you're ready to order when decisions happen — not scrambling after.</div>
+    </div>
+    <div class="how-step r">
+      <div class="how-num">02</div>
+      <div class="how-title">Pick Your Seed</div>
+      <div class="how-body">Choose hybrids. Set your acres. See the exact cost per thousand seeds — same price everyone sees, right here on this page.</div>
+    </div>
+    <div class="how-step r">
+      <div class="how-num">03</div>
+      <div class="how-title">We Deliver</div>
+      <div class="how-body">Warehouse to your farm. Soybeans arrive pre-treated with HomeForty Bio. One fewer hand between the genetics and your planter.</div>
+    </div>
+    <div class="how-step r">
+      <div class="how-num">04</div>
+      <div class="how-title">Pay After Harvest</div>
+      <div class="how-body">0% through Crow's financing. You pay when the crop comes in. That's how it should have always worked for every farmer.</div>
+    </div>
+  </div>
+</section>
+
+
+<!-- JOIN -->
+<section id="join">
+  <div class="join-inner r">
+    <span class="join-eyebrow">Free Membership · Eastern Corn Belt</span>
+    <h2 class="join-h2">
+      We're not asking<br>the industry to<br><em>change.</em><br>We're offering<br>a more <em>direct way.</em>
+    </h2>
+    <p class="join-sub">Free to join. No commitment. No one will call unless you ask. Just better pricing, 0% financing, and the quiet satisfaction of knowing exactly what you paid.</p>
+    <div class="join-form">
+      <input type="email" class="join-input" placeholder="your@email.com">
+      <button class="join-submit" onclick="handleJoin()">Join Free →</button>
+    </div>
+    <p class="join-fine">Free membership · Crow's financing pre-arranged · Eastern Corn Belt only</p>
+  </div>
+</section>
+
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot-brand">CROW'S</div>
+  <div class="foot-copy">© 2025 Crow's · Direct Seed · Not Your Grandfather's Seed Company</div>
+</footer>
+
+
+<script>
+/* NAV */
+window.addEventListener('scroll', () => {
+  document.getElementById('nav').classList.toggle('on', window.scrollY > 40);
+});
+
+/* REVEAL */
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }});
+}, { threshold: 0.07 });
+document.querySelectorAll('.r').forEach(el => io.observe(el));
+
+/* CALCULATOR */
+const SPB = 80000, SOY_K = 140000, SOY_P = 0.43;
+const CAT = [
+  { name:'CR 11-12', tier:'Foundation · 111-Day', ourP:3.44, mktP:4.90 },
+  { name:'CR 11-45', tier:'Performance · 111-Day', ourP:3.50, mktP:5.10 },
+  { name:'CR 10-78', tier:'Elite · 107-Day',       ourP:3.75, mktP:5.50 },
+];
+let hybrids=[], ctr=0;
+
+function setTab(t) {
+  ['corn','soy'].forEach(k => {
+    document.getElementById('calc-'+k).style.display = k===t?'block':'none';
+    document.getElementById('tab-'+k+'-btn').classList.toggle('on', k===t);
+  });
+}
+
+function addHybrid(tpl) {
+  const t = tpl || CAT[hybrids.length % CAT.length];
+  hybrids.push({ id:++ctr, ...t, acres:100 });
+  renderCards();
+}
+function removeHybrid(id) { hybrids = hybrids.filter(h=>h.id!==id); renderCards(); }
+function updateHybrid(id,f,v) { const h=hybrids.find(h=>h.id===id); if(h){ h[f]=v; recalcCorn(); }}
+
+function renderCards() {
+  const g = document.getElementById('cards-grid');
+  g.innerHTML = '';
+  if (!hybrids.length) {
+    g.innerHTML = `<div style="grid-column:1/-1;padding:40px;border:1.5px dashed var(--rule);text-align:center;">
+      <p style="font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--gray);margin-bottom:14px;">No hybrids added yet</p>
+      <button class="add-btn" onclick="addHybrid()" style="margin:0 auto">+ Add First Hybrid</button></div>`;
+    recalcCorn(); return;
+  }
+  const rate = +document.getElementById('global-rate').value;
+  hybrids.forEach(h => {
+    const seeds=h.acres*rate, bags=Math.ceil(seeds/SPB);
+    const our=bags*(h.ourP*SPB/1000), mkt=(seeds/1000)*h.mktP, save=Math.max(mkt-our,0);
+    const c=document.createElement('div'); c.className='hcard';
+    c.innerHTML=`
+      <div class="hc-top">
+        <div style="flex:1;min-width:0">
+          <div class="hc-tier">${h.tier}</div>
+          <input class="hc-name" type="text" value="${h.name}" oninput="updateHybrid(${h.id},'name',this.value)">
+        </div>
+        <button class="hc-rm" onclick="removeHybrid(${h.id})">×</button>
+      </div>
+      <div class="hc-prices">
+        <div class="hc-pc ours">
+          <label>Our Price /K</label>
+          <div class="hc-pw"><span class="hc-$">$</span>
+            <input class="hc-pi" type="number" value="${h.ourP.toFixed(2)}" step="0.01" min="1" max="10"
+              onchange="updateHybrid(${h.id},'ourP',parseFloat(this.value)||${h.ourP});renderCards()">
+            <span class="hc-pk">/K</span></div>
+        </div>
+        <div class="hc-pc">
+          <label>You Pay Now /K</label>
+          <div class="hc-pw"><span class="hc-$">$</span>
+            <input class="hc-pi" type="number" value="${h.mktP.toFixed(2)}" step="0.01" min="1" max="10"
+              onchange="updateHybrid(${h.id},'mktP',parseFloat(this.value)||${h.mktP});renderCards()">
+            <span class="hc-pk">/K</span></div>
+        </div>
+      </div>
+      <div class="hc-acres">
+        <div class="hc-acres-hd">
+          <span class="hc-acres-tag">Acres</span>
+          <span class="hc-acres-val" id="av-${h.id}">${h.acres} ac</span>
+        </div>
+        <input type="range" class="sl" min="25" max="500" step="25" value="${h.acres}"
+          oninput="updateHybrid(${h.id},'acres',+this.value);document.getElementById('av-${h.id}').textContent=this.value+' ac';renderCards()">
+        <div class="hc-ticks"><span>25 ac</span><span>500 ac</span></div>
+      </div>
+      <div class="hc-foot">
+        <div><div class="hc-lbl">Cost</div><div class="hc-bags">${bags} bags</div></div>
+        <div style="text-align:right"><div class="hc-val">$${Math.round(our).toLocaleString()}</div><div class="hc-save">save $${Math.round(save).toLocaleString()}</div></div>
+      </div>`;
+    g.appendChild(c);
+  });
+  recalcCorn();
+}
+
+function recalcCorn() {
+  const rate=+document.getElementById('global-rate').value;
+  document.getElementById('rate-display').textContent=(rate/1000).toFixed(0)+',000 /ac';
+  let acres=0,bags=0,our=0,mkt=0;
+  hybrids.forEach(h=>{
+    const s=h.acres*rate,b=Math.ceil(s/SPB);
+    acres+=h.acres; bags+=b;
+    our+=b*(h.ourP*SPB/1000); mkt+=(s/1000)*h.mktP;
+  });
+  const save=Math.max(mkt-our,0);
+  document.getElementById('sum-acres').textContent=acres.toLocaleString();
+  document.getElementById('sum-bags').textContent=bags.toLocaleString();
+  document.getElementById('sum-our').textContent='$'+Math.round(our).toLocaleString();
+  document.getElementById('sum-market').textContent='$'+Math.round(mkt).toLocaleString();
+  document.getElementById('sum-savings').textContent=Math.round(save).toLocaleString();
+}
+
+function recalcSoy() {
+  const acres=+document.getElementById('soy-acres').value;
+  const mktK=parseFloat(document.getElementById('soy-mkt').value)||0;
+  document.getElementById('soy-ac-disp').textContent=acres.toLocaleString()+' ac';
+  const seeds=acres*SOY_K, our=(seeds/1000)*SOY_P, mkt=(seeds/1000)*mktK;
+  const perAc=(mktK-SOY_P)*(SOY_K/1000);
+  document.getElementById('soy-sav-ac').textContent='$'+Math.max(perAc,0).toFixed(2);
+  document.getElementById('soy-s-ac').textContent=acres.toLocaleString();
+  document.getElementById('soy-s-units').textContent=acres.toLocaleString();
+  document.getElementById('soy-s-our').textContent='$'+Math.round(our).toLocaleString();
+  document.getElementById('soy-s-mkt').textContent='$'+Math.round(mkt).toLocaleString();
+  document.getElementById('soy-s-sav').textContent=Math.round(Math.max(mkt-our,0)).toLocaleString();
+}
+
+function handleJoin() {
+  const f=document.querySelector('.join-input'), b=document.querySelector('.join-submit');
+  if(f.value&&f.value.includes('@')){ f.value=''; b.textContent="You're in. ✓"; setTimeout(()=>{b.textContent='Join Free →'},3000); }
+}
+
+CAT.forEach(t=>addHybrid(t)); recalcSoy();
+</script>
+</body>
+</html>
